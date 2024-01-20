@@ -1,0 +1,39 @@
+.day{
+    font-weight: 800;
+    font-size: .7em;
+    color: white;
+    position: absolute;
+    right: 0.5em;
+    top: 0.5em;
+}
+
+.disabled {
+    background-color: var(--color-primario);
+    opacity: 0.3;
+    border-top: .1em solid var(--color-primario);   
+}
+
+
+.calendarCell{
+    overflow-y: hidden; 
+    padding: .5em;
+    height: 7em;
+    position: relative;
+    border-top: .1em solid var(--color-primario);
+}
+
+.orderSpan{
+    background-color: #b19fed;
+    color: white;
+    font-size: .7em;
+    margin: .2em 0;
+    border-radius: .2em;
+    padding: .2em 0;
+    display: block;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.orderSpan span:last-child {
+    color: aquamarine;
+}

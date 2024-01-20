@@ -1,0 +1,42 @@
+
+.loginForm{
+    width: 70%;
+    height: 70vh;
+    border-radius: 1em;
+    border: .2em solid rgb(188, 136, 255);
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.loginLogo{
+    width: 3em;
+    height: 3em;
+    border-radius: 50%;
+    border: .2em solid black;
+}
+
+.loginForm div:first-child{
+    width: 50%;
+    height: 100%;
+    background-color: rgb(188, 136, 255);
+    border-radius: 0.5em 0 0 0.5em;
+}
+
+.loginForm div:nth-child(2){
+
+    width: 50%;
+    padding: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2em;
+    align-items: center;
+    font-size: 1.5em;
+}
+
+.registerLink{
+    color: rgb(188, 136, 255) ;
+    font-size: .5em;
+}
+

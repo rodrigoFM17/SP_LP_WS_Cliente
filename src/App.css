@@ -1,0 +1,43 @@
+
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(53, 53, 53);
+  color: white;
+}
+
+input[type='tel']{
+  text-align: center;
+  
+  font-size: 1em;  
+}
+
+button{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: rgb(188, 136, 255);
+  color: white;
+  border-radius: 1em;
+  border-style: none;
+  padding: 1em;
+  width: 50%;
+}
+
+input, select{
+  text-align: center;
+  font-size: 1em;
+  background-color: rgb(53, 53, 53);
+  border-style: none;
+  border-bottom: .2em solid rgb(188, 136, 255);
+  color: white;
+}
