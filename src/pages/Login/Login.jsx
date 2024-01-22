@@ -33,7 +33,7 @@ export default function Login () {
 
                 setUser(newUserInformation)
 
-                navigate('/home')
+                newUserInformation.admin ? navigate('/admin'): navigate('/home') 
 
             } else {
                 alert('telefono invalido')

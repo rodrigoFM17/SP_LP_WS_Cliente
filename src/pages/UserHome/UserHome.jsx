@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import TreatmentCard from "../../components/TreatmentCard/TreatmentCard"
-import './Home.css'
+import './UserHome.css'
 import { navigate } from "wouter/use-location"
 import NavBar from "../../components/NavBar/NavBar"
+import UserContext from "../../context/UserContext"
 
 export default function Home () {
 
     const [treatments, setTreatments] = useState([])
+    const {user} = useContext(UserContext)
 
     useEffect( () => {
 
@@ -31,10 +33,11 @@ export default function Home () {
         } else {
             alert('no has seleccionado ningun tratamiento')
         }
-
-
-
     }   
+
+    const addNewTreatment = () => {
+        alert('negro')
+    }
 
     return (
         <section className="home">
@@ -42,7 +45,8 @@ export default function Home () {
             <NavBar />
 
             <form onSubmit={goToDate}>
-
+                
+                <div>
                 {
                 treatments.map( treatment => {
                     let i = 1
@@ -51,18 +55,21 @@ export default function Home () {
                             duration={treatment.duracion} 
                             price={treatment.precio}
                             id={treatment.id} 
+                            admin={user.admin}
                             key={`treatment${i++}`} />
                     })
                 }
+                </div>
 
-                <button>AGENDAR UNA CITA</button>
+                {
+                    !user.admin ? <button>AGENDAR UNA CITA</button> : 
+                    <button onClick={addNewTreatment} type="button">AÑADIR TRATAMIENTO</button>
+                }
+                
+
+                
 
             </form>
-
-            
-
-            
-
         </section>
     )
 }

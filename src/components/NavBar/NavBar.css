@@ -1,7 +1,12 @@
 .navBar{
     position: absolute;
+    padding: 1em;
     left: 0;
     top: 0;
     width: 100vw;
-    background-color: black;
+    background-color: rgb(41, 41, 41);
+    box-shadow: 0 .1em 1em rgb(188, 136, 255);
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
 }

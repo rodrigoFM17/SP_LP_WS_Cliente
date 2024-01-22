@@ -4,8 +4,10 @@ import './App.css'
 import Login from './pages/Login/Login'
 import Calendar from './components/Calendar/Calendar'
 import { UserContextProvider } from './context/UserContext'
-import Home from './pages/Home/Home'
+import UserHome from './pages/UserHome/UserHome'
 import NewDate from './pages/NewDate/NewDate'
+import { DatesContextProvider } from './context/DatesContext'
+import AdminHome from './pages/AdminHome/AdminHome'
 
 function App() {
   
@@ -20,22 +22,25 @@ function App() {
 
         <Route
         path='/home'
-        component={Home}
+        component={UserHome}
         />
 
-        <Route 
-        path='/dates'
-        component={Calendar}
-        />
+        <DatesContextProvider>
+          <Route 
+          path='/dates'
+          component={Calendar}
+          />
+          <Route
+          path='/admin'
+          component={AdminHome}
+          />
+        </DatesContextProvider>
 
         <Route
         path='/newDate/:id'
         component={NewDate}
         />
 
-
-
-        
       </UserContextProvider>
     </div>
   )

@@ -1,7 +1,7 @@
 
 import './TreatmentCard.css'
 
-export default function TreatmentCard({price, duration, name, id}) {
+export default function TreatmentCard({price, duration, name, id, admin}) {
 
 
     return(
@@ -14,7 +14,11 @@ export default function TreatmentCard({price, duration, name, id}) {
                 <span>{duration} hora </span>
                 
             </label>
-            <input type="radio" value={id} name='treatments' id={`treatment${id}`}/>
+
+            {
+                !admin ? <input type="radio" value={id} name='treatments' id={`treatment${id}`}/> : null
+            }
+            
         </fieldset>
     )
 }
