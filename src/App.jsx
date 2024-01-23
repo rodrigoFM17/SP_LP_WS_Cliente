@@ -8,6 +8,7 @@ import UserHome from './pages/UserHome/UserHome'
 import NewDate from './pages/NewDate/NewDate'
 import { DatesContextProvider } from './context/DatesContext'
 import AdminHome from './pages/AdminHome/AdminHome'
+import SpecificDay from './pages/SpecificDay/SpecificDay'
 
 function App() {
   
@@ -33,6 +34,10 @@ function App() {
           <Route
           path='/admin'
           component={AdminHome}
+          />
+          <Route
+          path='/dates/:year/:month/:day'
+          component={SpecificDay}
           />
         </DatesContextProvider>
 

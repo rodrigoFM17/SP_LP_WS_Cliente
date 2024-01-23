@@ -1,40 +1,53 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import NavBar from "../../components/NavBar/NavBar";
 import DatesContext from "../../context/DatesContext";
+import TreatmentCard from "../../components/TreatmentCard/TreatmentCard";
+import './AdminHome.css'
 
 
 export default function AdminHome () {
 
     const {dates, setDates} = useContext(DatesContext)
+    const [treatments, setTreatments] = useState([])
 
-    const updateDatesWithLP = async () => {
-        
-        try{
-            const res = await fetch('http://localhost:3000/citas/update')
-            const data = await res.json()
-            console.log(data)
-        }catch{
-            console.log('tiempo de espera terminado')
-        }finally {
-            
-        }
-    }
     
     useEffect(() =>{
 
         fetch('http://localhost:3000/citas')
         .then(response => response.json())
         .then(data => setDates(data.citas))
+
+        fetch('http://localhost:3000/tratamientos')
+        .then(response => response.json())
+        .then(data => setTreatments(data.tratamientos))
         
-        updateDatesWithLP()
     },[])
+
+    useEffect( () => {
+
+        console.log(dates)
+
+    },[dates])
     
 
     return (
-        <section>
-            <NavBar/>
+        <section className="adminHome">
+            <NavBar />
 
-            {dates.length}
+            <div>
+
+            {
+                treatments.map(treatment => <TreatmentCard admin={true} 
+                                            price={treatment.precio} 
+                                            duration={treatment.duracion} 
+                                            name={treatment.nombre}
+                                            />)
+            }
+
+            </div>
+
+            
+
         </section>
     )
 }

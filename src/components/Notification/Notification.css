@@ -1,4 +1,5 @@
 .notification{
+    cursor: pointer;
     width: 2em;
     position: relative;
 }
@@ -23,5 +24,23 @@
     position: absolute;
     left: .4em;
     top: -.1em;
-    
 }
+
+.showNotification{
+    
+    background-color: white;
+    color: black;
+    font-weight: 500;
+    text-align: center;
+    border-radius: .2em;
+    position: absolute;
+    width: 12em;
+    font-size: .8em;
+    right: -.5em;
+    padding: .2em;
+}
+
+.linkToDates{
+    text-decoration: none;
+}
+

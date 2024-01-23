@@ -14,7 +14,7 @@ export default function NavBar () {
                 Bienvenido {user.name}
             </h1>
 
-            <Notification />
+            <Notification/>
 
         </header>
     )
