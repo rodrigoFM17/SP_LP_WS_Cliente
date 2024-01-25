@@ -7,15 +7,13 @@ export default function NewDate({params}) {
 
     const treatmentId = params.id
     const inputDate = useRef(null)
-    const selectHour = useRef(null)
+    const selectedHour = useRef(null)
     const {user} = useContext(UserContext)
     const [scheduledDate, setScheduledDate] = useState(null)
     const [availableHours, setAvailableHours] = useState([])
-    const hours = ['09:00:00', '10:00:00', '11:00:00', '12:00:00', "13:00:00", "14:00:00", '15:00:00', "16:00:00"]
+    const hours = ['09:00:00', '10:00:00', '11:00:00', '12:00:00', '13:00:00', '14:00:00', '15:00:00', '16:00:00']
 
-    const ws = new WebSocket('ws://localhost:4000/')
-
-    console.log(user, treatmentId)
+    //const ws = new WebSocket('ws://localhost:4000/')
 
     useEffect( () => {
 
@@ -40,7 +38,7 @@ export default function NewDate({params}) {
         e.preventDefault()
         
         const date = inputDate.current.value
-        const hour = selectHour.current.value
+        const hour = selectedHour.current.value
 
         const newDate = {
             fecha: date,
@@ -58,10 +56,10 @@ export default function NewDate({params}) {
         })
         .then(response => response.json())
         .then(data => console.log(data))
-       
+       /*
         ws.send(JSON.stringify(newDate))
         ws.close(1000, "Cita agendada correctamente")
-        
+        */
         navigate('/home')
     }
 
@@ -89,20 +87,21 @@ export default function NewDate({params}) {
             const month = addZero(scheduledDate.getMonth() + 1)
             const day = addZero(scheduledDate.getDate())
 
-            console.log(scheduledDate)
+            const date = `${year}/${month}/${day}`
 
-            fetch(`http://localhost:3000/citas/${year}/${month}/${day}`)
+            fetch(`http://localhost:3000/citas/${date}`)
             .then(response => response.json())
             .then(data => {
                 console.log(data)
+
                 const {citas} = data
-                let auxArray = hours
-                citas.forEach(cita => {
-                    auxArray = hours.filter(hour => hour != cita.hora)
-                });
-    
+                const hoursOfDates = citas.map(cita => cita.hora)
+            
+                const auxArray = hours.filter(hour => !hoursOfDates.includes(hour))
+                
                 console.log(auxArray)
-                setAvailableHours(auxArray)
+    
+                setAvailableHours([...auxArray])
             })
 
         }
@@ -120,13 +119,11 @@ export default function NewDate({params}) {
                 <input type="date" min={minDate} ref={inputDate} onInput={verifyDate} />
 
                 {
-                    scheduledDate ? <select name="" id="" required ref={selectHour}>
+                    scheduledDate ? <select name="date" id="" required ref={selectedHour}>
                         <option value="" disabled selected >seleccione el horario</option>
                     {
                         availableHours.map(availableHour => <option value={availableHour}> {availableHour}</option>)
                     }
-                        
-                        
                     </select> : null
                 }
 

@@ -20,8 +20,8 @@ export default function NavBar () {
                 <Link to="/dates">
                     <img src={calendar} alt="" className="calendar"/>
                 </Link>
-                <Notification/>
 
+                <Notification/>
             </div>
 
         </header>

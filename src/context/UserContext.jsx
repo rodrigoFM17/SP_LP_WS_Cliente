@@ -1,6 +1,11 @@
 import { createContext, useState } from "react";
 
-const UserContext = createContext({})
+const UserContext = createContext({
+    loged:false,
+    userId: undefined,
+    admin: false,
+    name: ''
+})
 
 export function UserContextProvider ({children}) {
 

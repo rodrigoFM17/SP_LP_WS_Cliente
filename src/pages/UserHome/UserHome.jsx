@@ -14,7 +14,7 @@ export default function Home () {
 
         fetch('http://localhost:3000/tratamientos')
         .then(response => response.json())
-        .then(data => setTreatments(data.tratamientos))
+        .then(data => setTreatments([...data.tratamientos]))
 
     }, [])
 
@@ -52,7 +52,7 @@ export default function Home () {
                             price={treatment.precio}
                             id={treatment.id} 
                             admin={user.admin}
-                            key={`treatment${i++}`} />
+                            key={treatment.id} />
                     })
                 }
                 </div>

@@ -15,38 +15,40 @@ function App() {
 
   return (
     <div className='app'>
-      <UserContextProvider>
-        <Route
-        path='/'
-        component={Login}
-        />
-
-        <Route
-        path='/home'
-        component={UserHome}
-        />
-
-        <DatesContextProvider>
-          <Route 
-          path='/dates'
-          component={Calendar}
-          />
+      
+        <UserContextProvider>
           <Route
-          path='/admin'
-          component={AdminHome}
+          path='/'
+          component={Login}
           />
+
           <Route
-          path='/dates/:year/:month/:day'
-          component={SpecificDay}
+          path='/home'
+          component={UserHome}
           />
-        </DatesContextProvider>
 
-        <Route
-        path='/newDate/:id'
-        component={NewDate}
-        />
+          <DatesContextProvider>
+            <Route 
+            path='/dates'
+            component={Calendar}
+            />
+            <Route
+            path='/admin'
+            component={AdminHome}
+            />
+            <Route
+            path='/dates/:year/:month/:day'
+            component={SpecificDay}
+            />
+          </DatesContextProvider>
 
-      </UserContextProvider>
+          <Route
+          path='/newDate/:id'
+          component={NewDate}
+          />
+
+        </UserContextProvider>
+      
     </div>
   )
 }

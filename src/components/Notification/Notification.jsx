@@ -10,12 +10,17 @@ export default function Notification (){
     const [notification, setNotification] = useState([])
     const {user} = useContext(UserContext)
     const [show, setShow] = useState(false)
+    
 
     useEffect( () => {
 
-        updateDatesWithLP()
+        console.log(user)
+
+        if(user.admin){
+            updateDatesWithLP()
+        }
         
-    },[])
+    },[user])
 
     const updateDatesWithLP = async () => {
         
@@ -23,6 +28,7 @@ export default function Notification (){
             console.log('LP')
             const response = await fetch('http://localhost:3000/citas/update')
             const data = await response.json()
+            console.log(response)
             
             notification.push(data.cita)
             
@@ -55,7 +61,8 @@ export default function Notification (){
     },[notification])
 
     return (
-        <figure className='notification' onClick={() => setShow(true)}>
+        <figure className='notification' onClick={() => setShow(!show)}>
+            
             <img src={bell} alt="" />
             {
                 notification.length > 0 ? <figure className='number'>
