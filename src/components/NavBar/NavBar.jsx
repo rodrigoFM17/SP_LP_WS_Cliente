@@ -2,6 +2,8 @@ import { useContext } from "react"
 import UserContext from "../../context/UserContext"
 import './NavBar.css'
 import Notification from "../Notification/Notification"
+import calendar from '../../assets/calendar-regular.svg'
+import { Link } from "wouter"
 
 
 export default function NavBar () {
@@ -14,7 +16,13 @@ export default function NavBar () {
                 Bienvenido {user.name}
             </h1>
 
-            <Notification/>
+            <div>
+                <Link to="/dates">
+                    <img src={calendar} alt="" className="calendar"/>
+                </Link>
+                <Notification/>
+
+            </div>
 
         </header>
     )

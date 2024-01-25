@@ -35,10 +35,6 @@ export default function Home () {
         }
     }   
 
-    const addNewTreatment = () => {
-        alert('negro')
-    }
-
     return (
         <section className="home">
 
@@ -61,13 +57,8 @@ export default function Home () {
                 }
                 </div>
 
-                {
-                    !user.admin ? <button>AGENDAR UNA CITA</button> : 
-                    <button onClick={addNewTreatment} type="button">AÑADIR TRATAMIENTO</button>
-                }
                 
-
-                
+                <button>AGENDAR UNA CITA</button>             
 
             </form>
         </section>

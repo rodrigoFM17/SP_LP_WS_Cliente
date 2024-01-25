@@ -1,7 +1,8 @@
 
+import { navigate } from 'wouter/use-location'
 import './CallendarCell.css'
 
-export default function CallendarCell({day, month, year, dayOrders}) {
+export default function CallendarCell({day, month, year}) {
 
 
     return(
@@ -9,7 +10,7 @@ export default function CallendarCell({day, month, year, dayOrders}) {
         
         {
             (day !== 0) ? 
-            <td className='calendarCell'> 
+            <td className='calendarCell' onClick={ () => navigate(`/dates/${year}/${+month + 1}/${day}`)}> 
                 <span className='day'>
                     {day}
                 </span>

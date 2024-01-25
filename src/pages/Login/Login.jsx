@@ -10,13 +10,15 @@ export default function Login () {
 
     const tel = useRef(null)
 
-    const userAuthentication = async (e) => {
+    const userAuthentication =  (e) => {
 
         e.preventDefault()
 
-        await fetch(`http://localhost:3000/usuarios/authentication/${tel.current.value}`)
+        fetch(`http://localhost:3000/usuarios/authentication/${tel.current.value}`)
         .then(response => response.json())
         .then(data => {
+
+            console.log(data)
 
             if(data.success){
 
@@ -40,7 +42,6 @@ export default function Login () {
             }
         })
 
-        console.log(user)
     }
     
 
@@ -57,9 +58,6 @@ export default function Login () {
                 <input type="tel" minLength={10} maxLength={10} required ref={tel}/>
 
                 <button type='submit' >INICIAR SESION</button>
-
-                <Link to='/' className='registerLink'> No tienes cuenta? registrate aca</Link>
-
 
             </div>
 

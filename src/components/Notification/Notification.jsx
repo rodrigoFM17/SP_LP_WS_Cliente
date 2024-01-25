@@ -21,10 +21,11 @@ export default function Notification (){
         
         try{
             console.log('LP')
-            const res = await fetch('http://localhost:3000/citas/update')
-            const data = await res.json()
-            console.log(data)
+            const response = await fetch('http://localhost:3000/citas/update')
+            const data = await response.json()
+            
             notification.push(data.cita)
+            
             setNotification([...notification])
         }catch{
             console.log('tiempo de espera terminado')
@@ -33,14 +34,31 @@ export default function Notification (){
         }
     }
 
-    useEffect( () =>{ }, [show])
+    const getRouteToDate = (date) =>{
 
+        const year = date.substr(0,4)
+        const month = date.substr(5,2)
+        const day = date.substr(8,2)
+        
+        const scheduledDate = `/dates/${year}/${month}/${day}`
+
+        return scheduledDate
+    }
+
+    useEffect( () =>{
+
+     }, [show])
+
+    useEffect(() => {
+
+        console.log(notification)
+    },[notification])
 
     return (
-        <figure className='notification' onClick={() => setShow(!show)}>
+        <figure className='notification' onClick={() => setShow(true)}>
             <img src={bell} alt="" />
             {
-                notification.length != 0 ? <figure className='number'>
+                notification.length > 0 ? <figure className='number'>
                     <span>
                     {notification.length}
                     </span>
@@ -51,9 +69,9 @@ export default function Notification (){
             {
                 show && notification.length > 0 ? 
                 <div className='showNotification'>
-                    {
+                    {   
                         notification.map( notif => <div>
-                            <Link to='/dates' className='linkToDates'>nueva cita a las {notif.hora}</Link>
+                            <Link to={getRouteToDate(notif.fecha)} className='linkToDates'>nueva cita a las {notif.hora} el {notif.fecha}</Link>
                         </div>)
                     }
                 </div>

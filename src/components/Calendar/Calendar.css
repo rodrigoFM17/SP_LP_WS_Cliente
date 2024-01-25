@@ -4,7 +4,7 @@
 
 .containerMonth{
     display: flex;
-    margin: 10vmax auto 1vmax;
+    margin: 0 auto 1vmax;
     justify-content: space-evenly;
     align-items: center;
     width: 30%;

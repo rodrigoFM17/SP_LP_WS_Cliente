@@ -10,3 +10,13 @@
     justify-content: space-between;
     align-content: center;
 }
+
+.navBar .calendar {
+    width: 2em;
+    cursor: pointer;
+}
+
+.navBar > div{
+    display: flex;
+    gap: 1em;
+}

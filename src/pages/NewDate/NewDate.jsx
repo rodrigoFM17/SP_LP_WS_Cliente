@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react"
 import './NewDate.css'
 import UserContext from "../../context/UserContext"
+import { navigate } from "wouter/use-location"
 
 export default function NewDate({params}) {
 
@@ -12,10 +13,11 @@ export default function NewDate({params}) {
     const [availableHours, setAvailableHours] = useState([])
     const hours = ['09:00:00', '10:00:00', '11:00:00', '12:00:00', "13:00:00", "14:00:00", '15:00:00', "16:00:00"]
 
+    const ws = new WebSocket('ws://localhost:4000/')
+
     console.log(user, treatmentId)
 
     useEffect( () => {
-
 
     },[])
 
@@ -33,15 +35,14 @@ export default function NewDate({params}) {
 
     const minDate = `${actualDate.getFullYear()}-${addZero(actualDate.getMonth() + 1)}-${addZero(actualDate.getDate())}`
 
-    const scheduleNewDate = (e) => {
+    const scheduleNewDate = async (e) => {
 
         e.preventDefault()
-
+        
         const date = inputDate.current.value
         const hour = selectHour.current.value
 
         const newDate = {
-
             fecha: date,
             hora: hour,
             usuarioId: user.userId,
@@ -57,8 +58,11 @@ export default function NewDate({params}) {
         })
         .then(response => response.json())
         .then(data => console.log(data))
-
-
+       
+        ws.send(JSON.stringify(newDate))
+        ws.close(1000, "Cita agendada correctamente")
+        
+        navigate('/home')
     }
 
     const verifyDate = (e) => {

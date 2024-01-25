@@ -15,6 +15,7 @@
 
 
 .calendarCell{
+    cursor: pointer;
     overflow-y: hidden; 
     padding: .5em;
     height: 7em;
