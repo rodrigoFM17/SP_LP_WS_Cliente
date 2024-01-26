@@ -5,6 +5,8 @@ import CallendarCell from '../CallendarCell/CallendarCell'
 
 
 export default function Calendar () {
+
+    //funcionamiento del calendario
     const year = new Date().getFullYear()
     const months = ['ENERO', 'FEBRERO', 'MARZO', 'ABRIL', 'MAYO', 'JUNIO', 'JULIO', 'AGOSTO', 'SEPTIEMBRE', 'OCTUBRE', 'NOVIEMBRE', 'DICIEMBRE']
     const [index, setIndex] = useState(new Date().getMonth())
@@ -59,6 +61,48 @@ export default function Calendar () {
         }
     }
 
+    //funcionamiento consumo del WebSocket
+
+    const [datesOfMonth, setDatesOfMonth] = useState([])
+
+    let ws = null
+
+    useEffect(() => {
+        fetch(`http://localhost:3000/citas/${year}/${index + 1}`)
+        .then(response => response.json())
+        .then(data => setDatesOfMonth(data.citas))    
+    },[])
+
+    useEffect(() => {
+        
+    ws = new WebSocket('ws://localhost:4000')
+
+    ws.onmessage = e => {
+
+        const message = JSON.parse(e.data)
+        const auxArray = datesOfMonth
+        auxArray.push(message.cita)
+        setDatesOfMonth([...auxArray])
+        console.log(message)
+        console.log(auxArray)
+    }
+
+    },[datesOfMonth])
+
+    const filterDatesByDay = (year, month, day) =>{
+
+        month = month.toString()
+
+        const stringMonth = month.length < 2 ? '0'+ month: month
+        const dateToCompare = `${year}-${stringMonth}-${day}`
+        
+        const dayDates = datesOfMonth.filter(date => date.fecha.substr(0,10) == dateToCompare)
+
+        return dayDates
+    }
+
+    
+
     return(
         <section>
 
@@ -82,18 +126,19 @@ export default function Calendar () {
                     </tr>
                 </thead>
                 <tbody>
-                        {
+                        {   
+                            datesOfMonth != null ?
                             auxDays.map(row =>{
                                  return <tr >
                                     {
                                         row.map( day =>{
-                                            return <CallendarCell day={day} month={index} year={year} />
+                                            return <CallendarCell day={day} month={index} year={year} dates={filterDatesByDay(year, index + 1, day)}/>
                                         })
                                     }
                                 </tr>
                                 
                                 
-                            })
+                            }): null
                             
                         }
 

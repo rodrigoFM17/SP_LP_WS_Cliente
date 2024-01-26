@@ -13,7 +13,7 @@ export default function NewDate({params}) {
     const [availableHours, setAvailableHours] = useState([])
     const hours = ['09:00:00', '10:00:00', '11:00:00', '12:00:00', '13:00:00', '14:00:00', '15:00:00', '16:00:00']
 
-    //const ws = new WebSocket('ws://localhost:4000/')
+    const ws = new WebSocket('ws://localhost:4000/')
 
     useEffect( () => {
 
@@ -56,10 +56,10 @@ export default function NewDate({params}) {
         })
         .then(response => response.json())
         .then(data => console.log(data))
-       /*
+       
         ws.send(JSON.stringify(newDate))
         ws.close(1000, "Cita agendada correctamente")
-        */
+        
         navigate('/home')
     }
 

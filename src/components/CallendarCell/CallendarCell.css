@@ -13,7 +13,6 @@
     border-top: .1em solid var(--color-primario);   
 }
 
-
 .calendarCell{
     cursor: pointer;
     overflow-y: hidden; 
@@ -21,6 +20,7 @@
     height: 7em;
     position: relative;
     border-top: .1em solid var(--color-primario);
+    text-align: center;
 }
 
 .orderSpan{
@@ -37,4 +37,8 @@
 
 .orderSpan span:last-child {
     color: aquamarine;
+}
+
+.numberOfDates{
+    color: white;
 }

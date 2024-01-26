@@ -28,7 +28,6 @@ export default function Notification (){
             console.log('LP')
             const response = await fetch('http://localhost:3000/citas/update')
             const data = await response.json()
-            console.log(response)
             
             notification.push(data.cita)
             
