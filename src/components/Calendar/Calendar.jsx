@@ -83,11 +83,26 @@ export default function Calendar () {
         const auxArray = datesOfMonth
         auxArray.push(message.cita)
         setDatesOfMonth([...auxArray])
-        console.log(message)
-        console.log(auxArray)
+
+        console.log(ws)
+    }
+
+    ws.onclose = e => {
+        console.log(e.code, e.reason, e.wasClean)
+
+        tryToReconnect()        
+
+/*
+        while(newWs.readyState != 1){
+        setTimeout( () => {
+        newWs = new WebSocket('ws://localhost:4000/')
+        console.log('intentando reconectar')
+        }, 500)
+       }*/
     }
 
     },[datesOfMonth])
+
 
     const filterDatesByDay = (year, month, day) =>{
 
@@ -99,6 +114,20 @@ export default function Calendar () {
         const dayDates = datesOfMonth.filter(date => date.fecha.substr(0,10) == dateToCompare)
 
         return dayDates
+    }
+
+    const tryToReconnect = () => {
+
+        let newWs 
+
+        do{
+            setInterval(() => { 
+            newWs = new WebSocket('ws://localhost:4000/')
+            console.log('intentado reconectar')
+            }, 1000)
+
+        }while(newWs.readyState != 1)
+
     }
 
     
