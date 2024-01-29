@@ -20,7 +20,6 @@ export default function CallendarCell({day, month, year, dates}) {
                         {dates.length}
                     </span>
                     :null
-
                 }
                 
             </td>

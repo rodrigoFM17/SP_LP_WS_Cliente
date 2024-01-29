@@ -64,44 +64,39 @@ export default function Calendar () {
     //funcionamiento consumo del WebSocket
 
     const [datesOfMonth, setDatesOfMonth] = useState([])
+    const [websocket, setWebsocket] = useState(null)
 
-    let ws = null
 
     useEffect(() => {
         fetch(`http://localhost:3000/citas/${year}/${index + 1}`)
         .then(response => response.json())
-        .then(data => setDatesOfMonth(data.citas))    
+        .then(data => setDatesOfMonth(data.citas))  
+        
+        setWebsocket(new WebSocket('ws://localhost:4000/'))
     },[])
 
     useEffect(() => {
         
-    ws = new WebSocket('ws://localhost:4000')
-
-    ws.onmessage = e => {
+    if(websocket){
+        websocket.onmessage = e => {
 
         const message = JSON.parse(e.data)
         const auxArray = datesOfMonth
         auxArray.push(message.cita)
+        console.log(auxArray)
         setDatesOfMonth([...auxArray])
-
-        console.log(ws)
     }
 
-    ws.onclose = e => {
+    websocket.onclose = (e) => {
         console.log(e.code, e.reason, e.wasClean)
 
         tryToReconnect()        
 
-/*
-        while(newWs.readyState != 1){
-        setTimeout( () => {
-        newWs = new WebSocket('ws://localhost:4000/')
-        console.log('intentando reconectar')
-        }, 500)
-       }*/
+        }
     }
+    
 
-    },[datesOfMonth])
+    },[websocket, datesOfMonth])
 
 
     const filterDatesByDay = (year, month, day) =>{
@@ -118,15 +113,38 @@ export default function Calendar () {
 
     const tryToReconnect = () => {
 
-        let newWs 
 
+        let newWs = new WebSocket('ws://localhost:4000/')
+        console.log(newWs)
+
+        while(newWs.readyState != 1){
+            setTimeout(() => console.log('a'), 2000)
+        }
+        /*
+        while(newWs.readyState != 1) {
+
+            console.log(newWs)
+            await setTimeout(()=>{
+            newWs = new WebSocket('ws://localhost:4000/')
+            }, 1000)
+            
+        }
+
+        console.log('gay')
+        */
+
+/*
         do{
-            setInterval(() => { 
+            setTimeout(() => { 
             newWs = new WebSocket('ws://localhost:4000/')
             console.log('intentado reconectar')
+            console.log(newWs.readyState)
+
+            console.log(newWs.readyState != 1)
             }, 1000)
 
-        }while(newWs.readyState != 1)
+        }while(newWs.readyState != 1);
+        console.log('afuera')*/
 
     }
 

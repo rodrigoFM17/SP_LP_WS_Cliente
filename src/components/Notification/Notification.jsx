@@ -14,11 +14,14 @@ export default function Notification (){
 
     useEffect( () => {
 
-        console.log(user)
-
-        if(user.admin){
-            updateDatesWithLP()
+        if(user.userId){
+            if(user.admin){
+                updateDatesWithLP()
+            } else {
+                updateMisingTimeWithSP()
+            }
         }
+
         
     },[user])
 
@@ -37,6 +40,30 @@ export default function Notification (){
         }finally {
             updateDatesWithLP()
         }
+    }
+
+    const updateMisingTimeWithSP = () =>{
+
+        console.log('short')
+
+        const actualDate = new Date()
+        const stringActualDate = `${actualDate.getFullYear()}/${actualDate.getMonth() + 1}/${actualDate.getDate()}`
+        const stringHour = `${actualDate.getHours()}:${actualDate.getMinutes()}`
+
+        fetch(`http://localhost:3000/citas/${stringActualDate}/${user.userId}/${stringHour}`)
+        .then(response => response.json())
+        .then(data => {
+
+            const auxArray = []
+            if(data.missingTime){
+                auxArray.push(data.missingTime)
+                setNotification([...auxArray])
+            }
+        })
+
+        setInterval( () => {
+            updateMisingTimeWithSP()
+        },60000)
     }
 
     const getRouteToDate = (date) =>{
@@ -59,6 +86,8 @@ export default function Notification (){
         console.log(notification)
     },[notification])
 
+    
+
     return (
         <figure className='notification' onClick={() => setShow(!show)}>
             
@@ -76,8 +105,15 @@ export default function Notification (){
                 show && notification.length > 0 ? 
                 <div className='showNotification'>
                     {   
+                        
                         notification.map( notif => <div>
-                            <Link to={getRouteToDate(notif.fecha)} className='linkToDates'>nueva cita a las {notif.hora} el {notif.fecha}</Link>
+                            {
+                                user.admin ?
+                                <Link to={getRouteToDate(notif.fecha)} className='linkToDates'>nueva cita a las {notif.hora} el {notif.fecha}</Link>
+                                :
+                                <span> faltan {notif} minuitos para tu cita</span>
+                            }
+                            
                         </div>)
                     }
                 </div>
