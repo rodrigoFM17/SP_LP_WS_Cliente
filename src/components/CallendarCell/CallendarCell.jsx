@@ -14,13 +14,11 @@ export default function CallendarCell({day, month, year, dates}) {
                 <span className='day'>
                     {day}
                 </span>
+                <div className='containerDates'>
                 {
-                    dates.length > 0 ?
-                    <span className='numberOfDates'>
-                        {dates.length}
-                    </span>
-                    :null
+                    dates.map( date => <span></span>)
                 }
+                </div>
                 
             </td>
             :
